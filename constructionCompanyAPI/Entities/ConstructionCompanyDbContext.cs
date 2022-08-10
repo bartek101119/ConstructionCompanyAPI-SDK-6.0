@@ -8,7 +8,10 @@ namespace constructionCompanyAPI.Entities
 {
     public class ConstructionCompanyDbContext : DbContext
     {
-        private string connectionString = "Server=(localdb)\\mssqllocaldb;Database=ConstructionCompanyDb;Trusted_Connection=True;";
+        public ConstructionCompanyDbContext(DbContextOptions<ConstructionCompanyDbContext> options) : base(options)
+        {
+
+        }
         public DbSet<ConstructionCompany> ConstructionCompanies { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<CompanyOwner> CompanyOwners { get; set; }
@@ -40,10 +43,6 @@ namespace constructionCompanyAPI.Entities
 
 
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+       
     }
 }

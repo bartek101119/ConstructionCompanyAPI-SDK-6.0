@@ -15,6 +15,7 @@ namespace constructionCompanyAPI.Controllers
 {
     [Route("/api/constructionCompany")]
     [ApiController]
+    // disable authorization if you want to test faster
     [Authorize]
     public class ConstructionCompanyController : ControllerBase
     {
@@ -53,7 +54,7 @@ namespace constructionCompanyAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "AtLeast18")]
+        [AllowAnonymous]
         public ActionResult<IEnumerable<ConstructionCompanyDto>> GetAll([FromQuery]ConstructionCompanyQuery query)
         {
             var constructionCompaniesDtos = service.GetAll(query);
@@ -62,6 +63,7 @@ namespace constructionCompanyAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "AtLeast18")]
         public ActionResult<ConstructionCompanyDto> Get([FromRoute]int id)
         {
             var constructionCompanyDto = service.GetById(id);

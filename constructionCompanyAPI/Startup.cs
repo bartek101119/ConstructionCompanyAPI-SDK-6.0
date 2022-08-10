@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -74,7 +75,6 @@ namespace constructionCompanyAPI
             services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
             services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
             services.AddControllers().AddFluentValidation();
-            services.AddDbContext<ConstructionCompanyDbContext>();
             services.AddScoped<ConstructionCompanySeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IConstructionCompanyService, ConstructionCompanyService>();
@@ -96,7 +96,9 @@ namespace constructionCompanyAPI
                             .WithOrigins(Configuration["AllowedOrigins"])
                             
                  );
-            }); 
+            });
+            services.AddDbContext<ConstructionCompanyDbContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("ConstructionCompanyDb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
