@@ -27,13 +27,13 @@ namespace constructionCompanyAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put([FromBody]UpdateConstructionCompanyDto dto, [FromRoute]int id)
+        public ActionResult Put([FromBody] UpdateConstructionCompanyDto dto, [FromRoute] int id)
         {
             service.Put(dto, id);
 
             return Ok();
         }
-        
+
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -47,7 +47,7 @@ namespace constructionCompanyAPI.Controllers
         [Authorize(Roles = "User")]
         public ActionResult CreateConstructionCompany([FromBody] CreateConstructionCompanyDto dto)
         {
-            
+
             var id = service.Create(dto);
 
             return Created($"api/constructionCompany/{id}", null);
@@ -55,20 +55,30 @@ namespace constructionCompanyAPI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult<IEnumerable<ConstructionCompanyDto>> GetAll([FromQuery]ConstructionCompanyQuery query)
+        public ActionResult<IEnumerable<ConstructionCompanyDto>> GetAll([FromQuery] ConstructionCompanyQuery query)
         {
             var constructionCompaniesDtos = service.GetAll(query);
 
             return Ok(constructionCompaniesDtos);
         }
 
+        [HttpGet("NoTracking")]
+        [AllowAnonymous]
+        public ActionResult<IEnumerable<ConstructionCompanyDto>> GetAllNoTracking()
+        {
+            var constructionCompaniesDtos = service.GetAllWithoutTracking();
+
+            return Ok(constructionCompaniesDtos);
+
+        }
         [HttpGet("{id}")]
         [Authorize(Policy = "AtLeast18")]
-        public ActionResult<ConstructionCompanyDto> Get([FromRoute]int id)
+        public ActionResult<ConstructionCompanyDto> Get([FromRoute] int id)
         {
             var constructionCompanyDto = service.GetById(id);
 
             return Ok(constructionCompanyDto);
         }
+
     }
-}
+} 

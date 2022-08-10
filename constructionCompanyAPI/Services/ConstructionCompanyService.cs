@@ -22,6 +22,7 @@ namespace constructionCompanyAPI.Services
         ConstructionCompanyDto GetById(int id);
         void Delete(int id);
         void Put(UpdateConstructionCompanyDto dto, int id);
+        List<ConstructionCompanyDto> GetAllWithoutTracking();
     }
 
     public class ConstructionCompanyService : IConstructionCompanyService
@@ -96,6 +97,21 @@ namespace constructionCompanyAPI.Services
             var constructionCompanyDto = mapper.Map<ConstructionCompanyDto>(constructionCompany);
 
             return constructionCompanyDto;
+        }
+
+        public List<ConstructionCompanyDto> GetAllWithoutTracking()
+        {
+            var constructionCompanies = dbContext
+                .ConstructionCompanies
+                .Include(c => c.Address)
+                .Include(c => c.CompanyOwner)
+                .Include(c => c.Employees)
+                .AsNoTracking()             // resource download optimization
+                .ToList();
+
+            var constructionCompaniesDtos = mapper.Map<List<ConstructionCompanyDto>>(constructionCompanies);
+
+            return constructionCompaniesDtos;
         }
 
         public int Create(CreateConstructionCompanyDto dto)
