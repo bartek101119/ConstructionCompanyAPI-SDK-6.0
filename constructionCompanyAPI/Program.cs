@@ -14,8 +14,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using constructionCompanyAPI;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
-var builder = WebApplication.CreateBuilder();
+[assembly: InternalsVisibleTo("constructionCompanyAPI.IntegrationTests")]
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
@@ -79,8 +82,9 @@ builder.Services.AddCors(option =>
 
      );
 });
+
 builder.Services.AddDbContext<ConstructionCompanyDbContext>
-    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConstructionCompanyDb")));
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
