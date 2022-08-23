@@ -30,19 +30,24 @@ namespace constructionCompanyAPI.Entities
                 .Property(n => n.Name)
                 .IsRequired();
 
-            modelBuilder.Entity<ConstructionCompany>()
-                .Property(c => c.Name)
-                .IsRequired()
-                .HasMaxLength(40);
+            modelBuilder.Entity<ConstructionCompany>(eb =>
+            {
+                eb.Property(x => x.LegalForm).IsRequired();
+                eb.Property(x => x.Name).IsRequired().HasMaxLength(40);
+                eb.Property(x => x.NIP).IsRequired();
+                eb.Property(x => x.REGON).IsRequired();
+                eb.Property(x => x.ContactEmail).IsRequired();
+                eb.Property(x => x.ContactNumber).IsRequired();
+                eb.Property(x => x.StartDate).HasPrecision(3);
+            });
 
-            modelBuilder.Entity<CompanyOwner>()
-                .Property(c => c.FullName)
-                .IsRequired()
-                .HasMaxLength(40);
-
+            modelBuilder.Entity<CompanyOwner>(eb =>
+            {
+                eb.Property(c => c.FullName).IsRequired().HasMaxLength(40);
+                eb.Property(c => c.ContactNumber).IsRequired();
+            });
 
 
         }
-       
     }
 }

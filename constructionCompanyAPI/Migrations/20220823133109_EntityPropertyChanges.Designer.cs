@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using constructionCompanyAPI.Entities;
 
@@ -11,9 +12,10 @@ using constructionCompanyAPI.Entities;
 namespace constructionCompanyAPI.Migrations
 {
     [DbContext(typeof(ConstructionCompanyDbContext))]
-    partial class ConstructionCompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220823133109_EntityPropertyChanges")]
+    partial class EntityPropertyChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
