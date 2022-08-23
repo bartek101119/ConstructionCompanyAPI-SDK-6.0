@@ -90,12 +90,25 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<ConstructionCompanySeeder>();
+var dbContext = scope.ServiceProvider.GetService<ConstructionCompanyDbContext>();
 
 app.UseResponseCaching();
 app.UseStaticFiles();
 app.UseCors("FrontEndClient");
 
+
+if (dbContext.Database.IsRelational())
+{
+    var pendingMigrations = dbContext.Database.GetPendingMigrations();
+
+    if (pendingMigrations.Any())
+    {
+        dbContext.Database.Migrate();
+    }
+}
+
 seeder.Seed();
+
 
 if (app.Environment.IsDevelopment())
 {
