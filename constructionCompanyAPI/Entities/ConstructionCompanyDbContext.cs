@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace constructionCompanyAPI.Entities
 {
@@ -45,8 +41,10 @@ namespace constructionCompanyAPI.Entities
             {
                 eb.Property(c => c.FullName).IsRequired().HasMaxLength(40);
                 eb.Property(c => c.ContactNumber).IsRequired();
+                eb.Property(c => c.FullName).HasColumnName("Full_Name");
             });
 
+            modelBuilder.Entity<Employee>().Property(x => x.FullName).HasColumnName("Full_Name");
 
         }
     }
