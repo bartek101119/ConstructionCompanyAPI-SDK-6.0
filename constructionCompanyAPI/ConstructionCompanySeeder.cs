@@ -135,6 +135,43 @@ namespace constructionCompanyAPI
                     }
                 },
 
+                new ConstructionCompany()
+                {
+                    Name = "Partner Firma Budowlana TEST",
+                    LegalForm = "Spółka z Ograniczoną Odpowiedzialnością TEST",
+                    NIP = "1433434343",
+                    REGON = "24313412443431231",
+                    KRS = "1312312343433131",
+                    ContactEmail = "pepega@wp.pl",
+                    ContactNumber = "131311212311",
+                    Address = new Address()
+                    {
+                        Voivodeship = "Kujawsko-Pomorskie TEST",
+                        City = "Bydgoszcz TEST",
+                        Street = "Głowackiego",
+                        PostalCode = "85-614"
+                    },
+                    CompanyOwner = new CompanyOwner()
+                    {
+                        FullName = "Jan Raki TEST",
+                        ContactEmail = "heheszki1112@wp.pl",
+                        ContactNumber = "1121"
+                    },
+                    Employees = new List<Employee>()
+                    {
+                        new Employee()
+                        {
+                            FullName = "Mateusz Karwaszewski TEST",
+                            Specialization = "Brukarz"
+                        },
+                        new Employee()
+                        {
+                            FullName = "Robert Nowak TEST",
+                            Specialization = "Pomocnik"
+                        }
+                    }
+                }
+
             };
             return constructionCompanies;
         }
