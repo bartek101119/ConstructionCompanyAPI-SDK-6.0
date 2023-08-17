@@ -11,7 +11,7 @@ namespace constructionCompanyAPI.Models.Validators
     {
         public RegisterUserDtoValidator(ConstructionCompanyDbContext dbContext)
         {
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email).NotEmpty().Matches(@"^(?=.{1,255}$)(?=.{1,64}@.{1,255}$)(?=.{1,64}@.{1,253}\.[a-zA-Z0-9-]{2,63}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").WithMessage("Invalid email format.");
 
             RuleFor(x => x.Password).Custom((password, context) =>
             {
